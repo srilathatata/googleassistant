@@ -19,7 +19,7 @@ restService.use(bodyParser.json());
 
 restService.post('/getSentiments', (req, res) => {
     
-    const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test");
+    const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test?keyword=Capgemini");
     http.get(reqUrl, (responseFromAPI) => {
         let completeResponse = '';
 		console.log("1--->");
@@ -28,19 +28,19 @@ restService.post('/getSentiments', (req, res) => {
         });
         responseFromAPI.on('end', () => {
 			console.log("2---->");
-            const movie = JSON.parse(completeResponse);
+            const payloadjson = JSON.parse(completeResponse);
 			console.log("3------>" + completeResponse);
             return res.json({
                 speech: completeResponse,
                 displayText: completeResponse,
-                source: 'get-movie-details'
+                source: 'sentiment-api'
             });
         });
     }, (error) => {
         return res.json({
             speech: 'Something went wrong!',
             displayText: 'Something went wrong!',
-            source: 'get-movie-details'
+            source: 'sentiment-api'
         });
     });
 });
