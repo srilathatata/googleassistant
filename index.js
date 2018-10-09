@@ -31,8 +31,8 @@ restService.post('/getSentiments', (req, res) => {
             const payloadjson = JSON.parse(completeResponse);
 			console.log("3------>" + completeResponse);
             return res.json({
-                speech: completeResponse,
-                displayText: completeResponse,
+                speech: payloadjson.sentiment.status,
+                displayText: payloadjson.sentiment.status,
                 source: 'sentiment-api'
             });
         });
