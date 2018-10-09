@@ -30,11 +30,7 @@ restService.post('/getSentiments', (req, res) => {
 			console.log("2---->");
             const payloadjson = JSON.parse(completeResponse);
 			console.log("3------>" + payloadjson.sentiment.status);
-            return res.json({
-                speech: payloadjson.sentiment.status,
-                displayText: payloadjson.sentiment.status,
-                source: 'sentiment-api'
-            });
+            return res.json({"payload":{"google":{"expectUserResponse":true,"richResponse":{  "items":[  {   "simpleResponse":{   "textToSpeech": payloadjson.sentiment.status}}]}}}});
         });
     }, (error) => {
         return res.json({
