@@ -20,7 +20,7 @@ restService.use(bodyParser.json());
 restService.post('/getSentiments', (req, res) => {
     var keyword = "Capgemini";
 	
-	console.log("1------>" + req.body.queryResult);
+	console.log("1------>" + req.body.queryResult.action);
 
 	const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test?keyword=${keyword}");
     http.get(reqUrl, (responseFromAPI) => {
