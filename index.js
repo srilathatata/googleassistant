@@ -19,7 +19,27 @@ restService.use(bodyParser.json());
 
 restService.post('/getSentiments', (req, res) => {
     
-   console.log(req);
+    const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test");
+    http.get(reqUrl, (responseFromAPI) => {
+        let completeResponse = '';
+        responseFromAPI.on('data', (chunk) => {
+            completeResponse += chunk;
+        });
+        responseFromAPI.on('end', () => {
+            const movie = JSON.parse(completeResponse);
+            return res.json({
+                speech: completeResponse,
+                displayText: completeResponse,
+                source: 'get-movie-details'
+            });
+        });
+    }, (error) => {
+        return res.json({
+            speech: 'Something went wrong!',
+            displayText: 'Something went wrong!',
+            source: 'get-movie-details'
+        });
+    });
 });
 
 restService.listen(port, function() {
