@@ -19,7 +19,7 @@ restService.use(bodyParser.json());
 
 restService.post('/getSentiments', (req, res) => {
     var keyword = "Capgemini";
-	const parameters = request.body.queryResult.parameters;
+	const parameters = req.body.queryResult.parameters;
 	var companyName = parameters['company_name'];
 	console.log("1------>" + companyName);
 
