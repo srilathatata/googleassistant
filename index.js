@@ -18,19 +18,18 @@ restService.use(
 restService.use(bodyParser.json());
 
 restService.post('/getSentiments', (req, res) => {
-    
-    const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test?keyword=Capgemini");
+    var keyword = "Capgemini";
+    const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test?keyword=${keyword}");
     http.get(reqUrl, (responseFromAPI) => {
         let completeResponse = '';
-		console.log("1--->");
+		
         responseFromAPI.on('data', (chunk) => {
             completeResponse += chunk;
         });
         responseFromAPI.on('end', () => {
-			console.log("2---->");
-            const payloadjson = JSON.parse(completeResponse);
+		    const payloadjson = JSON.parse(completeResponse);
 			console.log("3------>" + payloadjson.sentiment.status);
-            return res.json({"payload":{"google":{"expectUserResponse":true,"richResponse":{  "items":[  {   "simpleResponse":{   "textToSpeech": payloadjson.sentiment.status}}]}}}});
+            return res.json({"payload":{"google":{"expectUserResponse":true,"richResponse":{  "items":[  {   "simpleResponse":{   "textToSpeech": "we have received feedback of "+ keyword + "as "+payloadjson.sentiment.status}}]}}}});
         });
     }, (error) => {
         return res.json({
