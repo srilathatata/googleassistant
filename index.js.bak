@@ -23,7 +23,7 @@ restService.post('/getSentiments', (req, res) => {
 	var keyword = parameters['company_name'];
 	console.log("1------>" + companyName);
 
-	const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test?keyword=${companyName}");
+	const reqUrl = encodeURI("https://googleassistantapi.uk-e1.cloudhub.io/test?keyword=${keyword}");
     http.get(reqUrl, (responseFromAPI) => {
         let completeResponse = '';
 		
